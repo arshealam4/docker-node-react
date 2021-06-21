@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: ./react-login-signup
+      dockerfile: Dockerfile.prod
+    ports:
+      - 80:80
+    restart: unless-stopped
+  api:
+    build: ./node-login-signup
+    ports:
+      - 7070:7070
+    environment:
+      DB_URL: mongodb:/db/demo
+    restart: unless-stopped
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27019:27017
+    volumes:
+      - vidly:/data/db
+    restart: unless-stopped
+volumes:
+  vidly:
