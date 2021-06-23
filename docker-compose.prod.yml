@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3'
 services:
   web:
     build:
@@ -7,19 +7,18 @@ services:
     ports:
       - 80:80
     restart: unless-stopped
-  api:
+  node:
+    restart: always
     build: ./node-login-signup
     ports:
       - 7070:7070
-    environment:
-      DB_URL: mongodb:/db/demo
-    restart: unless-stopped
-  db:
-    image: mongo:4.0-xenial
-    ports:
-      - 27019:27017
     volumes:
-      - vidly:/data/db
-    restart: unless-stopped
+      - ./:/code
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
 volumes:
-  vidly:
+ mongodb:
