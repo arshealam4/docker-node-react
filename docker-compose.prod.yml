@@ -5,7 +5,8 @@ services:
       context: ./react-login-signup
       dockerfile: Dockerfile.prod
     ports:
-      - 80:80
+      - 8888:80
+    network_mode: "host"
     restart: unless-stopped
   node:
     restart: always
