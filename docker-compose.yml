@@ -1,14 +1,22 @@
 version: "3.8"
 services:
-  frontend:
+  web:
     build: ./react-login-signup
     ports:
       - 5050:5050
-  backend:
+    restart: unless-stopped
+  node:
+    restart: always
     build: ./node-login-signup
     ports:
       - 7070:7070
-  database:
-    image: mongo:4.0-xenial
+    volumes:
+      - ./:/code
+  mongo:
+    image: mongo
     ports:
-    - 27017:27017
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+volumes:
+ mongodb:
