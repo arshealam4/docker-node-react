@@ -2,9 +2,7 @@ version: '3'
 services:
   web:
     container_name: react-prod
-    build:
-      context: ./react-login-signup
-      dockerfile: Dockerfile.prod
+    build: ./react-login-signup
     ports:
       - 8080:80
     network_mode: "host"
