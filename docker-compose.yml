@@ -1,22 +1,27 @@
-version: "3.8"
+version: '3'
 services:
   web:
-    build: ./react-login-signup
+    container_name: react-prod
+    build:
+      context: ./react-login-signup
+      dockerfile: Dockerfile.prod
     ports:
-      - 5050:5050
+      - 8080:80
+    network_mode: "host"
     restart: unless-stopped
   node:
+    container_name: node-prod
     restart: always
     build: ./node-login-signup
     ports:
       - 7070:7070
     volumes:
       - ./:/code
-  mongo:
+  db:
     image: mongo
     ports:
       - 27017:27017
     volumes:
-      - mongodb:/data/db
+      - dbData:/data/db
 volumes:
- mongodb:
+ dbData:

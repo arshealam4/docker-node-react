@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const config = require('config');
 
-mongoose.connect('mongodb://mongo:27017/demo');
+mongoose.connect('mongodb://db:27017/demo');
 
 mongoose.Promise = global.Promise;
 
