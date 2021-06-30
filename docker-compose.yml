@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   web:
     container_name: react-prod
@@ -7,19 +7,21 @@ services:
       - 8080:80
     network_mode: "host"
     restart: unless-stopped
-  node:
-    container_name: node-prod
-    restart: always
-    build: ./node-login-signup
-    ports:
-      - 7070:7070
-    volumes:
-      - ./:/code
   db:
     image: mongo
     ports:
       - 27017:27017
     volumes:
       - dbData:/data/db
+  node:
+    container_name: node-prod
+    restart: unless-stopped
+    build: ./node-login-signup
+    ports:
+      - 7070:7070
+    links:
+      - db
+    volumes:
+      - ./:/code
 volumes:
  dbData:
